@@ -32,7 +32,6 @@ class SimpleReport():
         valid_date = SimpleReport.date_structure("9999-12-31")
 
         for value_date in all_expiration_dates:
-            # print(type(value_date), type(valid_date))
             if value_date > today and value_date < valid_date:
                 valid_date = value_date
 
@@ -64,36 +63,3 @@ class SimpleReport():
           f"Data de validade mais próxima: {expiration_date}\n"
           f"Empresa com mais produtos: {more_products}"
         )
-
-
-print(SimpleReport.generate(
-    [
-     {
-       "id": 1,
-       "nome_do_produto": "CADEIRA",
-       "nome_da_empresa": "Forces of Nature",
-       "data_de_fabricacao": "2022-04-04",
-       "data_de_validade": "2023-02-09",
-       "numero_de_serie": "FR48",
-       "instrucoes_de_armazenamento": "Conservar em local fresco"
-     },
-     {
-       "id": 1,
-       "nome_do_produto": "CADEIRA",
-       "nome_da_empresa": "Forces of Nature",
-       "data_de_fabricacao": "2022-04-04",
-       "data_de_validade": "2023-01-09",
-       "numero_de_serie": "FR48",
-       "instrucoes_de_armazenamento": "Conservar em local fresco"
-     },
-     {
-       "id": 1,
-       "nome_do_produto": "CADEIRA",
-       "nome_da_empresa": "Forces",
-       "data_de_fabricacao": "2010-04-04",
-       "data_de_validade": "2023-02-09",
-       "numero_de_serie": "FR48",
-       "instrucoes_de_armazenamento": "Conservar em local fresco"
-     }
-    ]
-))
