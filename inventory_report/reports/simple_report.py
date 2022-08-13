@@ -3,7 +3,7 @@ from datetime import datetime
 STRUCTURE_DATE = "%Y-%m-%d"
 
 
-class SimpleReport():
+class SimpleReport:
     @classmethod
     def date_structure(cls, date):
         return datetime.strptime(date, STRUCTURE_DATE)
