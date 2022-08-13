@@ -1,9 +1,13 @@
 from datetime import datetime
 
-ESTRUTURE_DATE = "%Y-%m-%d"
+STRUCTURE_DATE = "%Y-%m-%d"
 
 
 class SimpleReport():
+    @classmethod
+    def date_structure(cls, date):
+        return datetime.strptime(date, STRUCTURE_DATE)
+
     @classmethod
     def __old_manufacturing_date(cls, products):
         all_manufacturing_dates = []
@@ -21,17 +25,18 @@ class SimpleReport():
 
         for product in products:
             expiration_date = product["data_de_validade"]
-            all_expiration_dates.append(datetime.strptime(
-              expiration_date, ESTRUTURE_DATE
-            ))
+            all_expiration_dates.append(
+                SimpleReport.date_structure(expiration_date)
+            )
 
-        valid_date = datetime.strptime("9999-12-31", ESTRUTURE_DATE)
+        valid_date = SimpleReport.date_structure("9999-12-31")
 
         for value_date in all_expiration_dates:
+            # print(type(value_date), type(valid_date))
             if value_date > today and value_date < valid_date:
-                valid_date = value_date.strftime(ESTRUTURE_DATE)
+                valid_date = value_date
 
-        return valid_date
+        return valid_date.strftime(STRUCTURE_DATE)
 
     @classmethod
     def __more_products(cls, products):
@@ -59,3 +64,36 @@ class SimpleReport():
           f"Data de validade mais próxima: {expiration_date}\n"
           f"Empresa com mais produtos: {more_products}"
         )
+
+
+print(SimpleReport.generate(
+    [
+     {
+       "id": 1,
+       "nome_do_produto": "CADEIRA",
+       "nome_da_empresa": "Forces of Nature",
+       "data_de_fabricacao": "2022-04-04",
+       "data_de_validade": "2023-02-09",
+       "numero_de_serie": "FR48",
+       "instrucoes_de_armazenamento": "Conservar em local fresco"
+     },
+     {
+       "id": 1,
+       "nome_do_produto": "CADEIRA",
+       "nome_da_empresa": "Forces of Nature",
+       "data_de_fabricacao": "2022-04-04",
+       "data_de_validade": "2023-01-09",
+       "numero_de_serie": "FR48",
+       "instrucoes_de_armazenamento": "Conservar em local fresco"
+     },
+     {
+       "id": 1,
+       "nome_do_produto": "CADEIRA",
+       "nome_da_empresa": "Forces",
+       "data_de_fabricacao": "2010-04-04",
+       "data_de_validade": "2023-02-09",
+       "numero_de_serie": "FR48",
+       "instrucoes_de_armazenamento": "Conservar em local fresco"
+     }
+    ]
+))
